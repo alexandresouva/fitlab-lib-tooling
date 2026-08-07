@@ -1,3 +1,3 @@
-# 🛠️ fitlab-tooling
+# 🛠️ fitlab-lib-tooling
 
 Repositório de ferramentas, linting, CLI e regras de IA para o portal FitLab.
