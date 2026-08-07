@@ -12,9 +12,13 @@
     "./eslint": "./eslint/index.js",
     "./ai-templates/*": "./ai-templates/*"
   },
+  "bin": {
+    "fitlab-tooling": "./dist/cli/index.js"
+  },
   "scripts": {
-    "build": "tsc -p tsconfig.lib.json",
-    "test": "vitest run"
+    "build": "tsc -p tsconfig.lib.json && chmod +x dist/cli/index.js",
+    "test": "vitest run",
+    "prepare": "husky"
   },
   "keywords": [
     "fitlab",
@@ -26,9 +30,12 @@
   "author": "Alexandre Souza",
   "license": "ISC",
   "devDependencies": {
+    "@commitlint/cli": "^21.2.1",
+    "@commitlint/config-conventional": "^21.2.0",
     "eslint": "^10.8.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-boundaries": "^7.1.0",
+    "husky": "^9.1.7",
     "typescript": "^5.5.4",
     "typescript-eslint": "^8.66.0",
     "vitest": "^4.1.10"
