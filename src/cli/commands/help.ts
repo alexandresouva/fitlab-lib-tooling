@@ -8,7 +8,8 @@ Usage:
 Available Commands:
   init-lint   : Configures ESLint Flat Config (eslint.config.js) in the repository.
   init-hooks  : Initializes Husky and Commitlint (Conventional Commits) with quality gates.
-  init-all    : Runs both init-lint and init-hooks sequentially.
+  init-ai     : Copies AI coding rules (.cursorrules) and Custom Skills (.agents/) to the repository.
+  init-all    : Runs lint, hooks, and AI setup commands sequentially.
   help, -h    : Show this help menu.
 `);
 }
