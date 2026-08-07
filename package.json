@@ -26,7 +26,11 @@
   "author": "Alexandre Souza",
   "license": "ISC",
   "devDependencies": {
+    "eslint": "^10.8.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-boundaries": "^7.1.0",
     "typescript": "^5.5.4",
+    "typescript-eslint": "^8.66.0",
     "vitest": "^4.1.10"
   }
 }
