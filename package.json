@@ -12,8 +12,11 @@
     "./eslint": "./eslint/index.js",
     "./ai-templates/*": "./ai-templates/*"
   },
+  "bin": {
+    "fitlab-tooling": "./dist/cli/index.js"
+  },
   "scripts": {
-    "build": "tsc -p tsconfig.lib.json",
+    "build": "tsc -p tsconfig.lib.json && chmod +x dist/cli/index.js",
     "test": "vitest run",
     "prepare": "husky"
   },
