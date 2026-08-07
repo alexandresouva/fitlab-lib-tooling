@@ -1,0 +1,31 @@
+{
+  "name": "@fitlab/tooling",
+  "version": "1.0.0",
+  "description": "Ecosystem governance, linting, CLI, and AI helpers for FitLab",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./eslint": "./eslint/index.js",
+    "./ai-templates/*": "./ai-templates/*"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.lib.json",
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "keywords": [
+    "fitlab",
+    "mfe",
+    "governance",
+    "linting",
+    "tooling"
+  ],
+  "author": "Alexandre Souza",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.5.4"
+  }
+}
