@@ -18,12 +18,10 @@ export function hasPermission(
     const hasExactPermission = perm === requiredPermission;
     if (hasExactPermission) return true;
 
-    if (perm.endsWith(':*')) {
-      const hasWildcardPermission = requiredPermission.startsWith(
-        perm.slice(0, -1)
-      );
-      if (hasWildcardPermission) return true;
-    }
+    const hasWildcardPermission =
+      perm.endsWith(':*') && requiredPermission.startsWith(perm.slice(0, -1));
+
+    if (hasWildcardPermission) return true;
 
     return false;
   });

@@ -14,7 +14,7 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.lib.json",
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "test": "vitest run"
   },
   "keywords": [
     "fitlab",
@@ -26,6 +26,7 @@
   "author": "Alexandre Souza",
   "license": "ISC",
   "devDependencies": {
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "vitest": "^4.1.10"
   }
 }
