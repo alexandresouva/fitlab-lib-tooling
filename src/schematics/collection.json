@@ -1,0 +1,10 @@
+{
+  "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "mfe-remote": {
+      "description": "Generates a new FitLab MFE Remote project structure",
+      "factory": "./mfe-remote/index#mfeRemote",
+      "schema": "./mfe-remote/schema.json"
+    }
+  }
+}
