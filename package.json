@@ -3,14 +3,17 @@
   "version": "1.0.0",
   "description": "Ecosystem governance, linting, CLI, and AI helpers for FitLab",
   "main": "./dist/index.js",
+  "module": "./dist/esm/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
+      "import": "./dist/esm/index.js",
       "default": "./dist/index.js"
     },
     "./eslint": "./eslint/index.js",
     "./ai-templates/*": "./ai-templates/*",
+    "./doc-templates/*": "./doc-templates/*",
     "./package.json": "./package.json"
   },
   "bin": {
@@ -18,7 +21,7 @@
   },
   "schematics": "./dist/schematics/collection.json",
   "scripts": {
-    "build": "node scripts/prebuild.mjs && tsc -p tsconfig.lib.json && node scripts/postbuild.mjs",
+    "build": "node scripts/prebuild.mjs && tsc -p tsconfig.lib.json && tsc -p tsconfig.esm.json && node scripts/postbuild.mjs",
     "test": "vitest run",
     "prepare": "husky"
   },

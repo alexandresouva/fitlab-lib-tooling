@@ -76,8 +76,8 @@ export function newApp(args: string[]): void {
       }
     },
     {
-      title: 'Installing @fitlab/tooling devDependency...',
-      run: () => runCommand(`npm install -D ${toolingPath}`, execOpts)
+      title: 'Installing @fitlab/tooling...',
+      run: () => runCommand(`npm install -D ${toolingPath} puppeteer`, execOpts)
     },
     {
       title: 'Running FitLab custom schematic and quality setup...',

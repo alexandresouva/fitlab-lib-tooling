@@ -7,7 +7,13 @@ export function runCommand(
   execSync(command, {
     stdio: 'inherit',
     ...options,
-    env: { ...process.env, NODE_NO_WARNINGS: '1', ...options.env }
+    env: {
+      ...process.env,
+      NODE_NO_WARNINGS: '1',
+      NG_CLI_ANALYTICS: 'false',
+      CI: 'true',
+      ...options.env
+    }
   });
 }
 

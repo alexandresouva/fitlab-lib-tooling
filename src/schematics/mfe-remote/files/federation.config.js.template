@@ -17,5 +17,9 @@ module.exports = withNativeFederation({
   skip: [
     'rxjs/ajax',
     'rxjs/webSocket',
+    '@angular/common/http/locales/extra',
+    '@angular/common/http/locales/global',
+    '@angular/common/http/http',
+    '@angular/common/http/upgrade',
   ]
 });
