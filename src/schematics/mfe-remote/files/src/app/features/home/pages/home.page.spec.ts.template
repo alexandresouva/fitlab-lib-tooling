@@ -1,0 +1,49 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HomePage } from './home.page';
+
+describe('HomePage', () => {
+  let component: HomePage;
+  let fixture: ComponentFixture<HomePage>;
+
+  beforeEach(async () => {
+    delete (window as any).mfeContext;
+
+    await TestBed.configureTestingModule({
+      imports: [HomePage],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(HomePage);
+    component = fixture.componentInstance;
+  });
+
+  afterEach(() => {
+    delete (window as any).mfeContext;
+  });
+
+  it('should create the component', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should display fallback state when window.mfeContext is undefined', () => {
+    fixture.detectChanges();
+    expect(component.token).toBe('No context token');
+    expect(component.hasAdminAccess).toBe(false);
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('.denied')?.textContent).toContain('DENIED');
+  });
+
+  it('should update token and grant admin access when mfeContext has matching permissions', () => {
+    (window as any).mfeContext = {
+      token: 'jwt-mock-token',
+      permissions: ['<%= dasherize(name) %>:*'],
+    };
+
+    fixture.detectChanges();
+    expect(component.token).toBe('jwt-mock-token');
+    expect(component.hasAdminAccess).toBe(true);
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('.allowed')?.textContent).toContain('ALLOWED');
+  });
+});

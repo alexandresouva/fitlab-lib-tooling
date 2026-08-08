@@ -58,15 +58,7 @@ export function newApp(args: string[]): void {
       title: 'Initializing blank Angular workspace...',
       run: () =>
         runCommand(
-          `npx -y @angular/cli@${angularVersion} new ${dirName} --create-application=false --directory=. --style=css --routing=true`,
-          execOpts
-        )
-    },
-    {
-      title: 'Generating application structure...',
-      run: () =>
-        runCommand(
-          `npx ng g application ${dirName} --routing --style=css --inline-style=false --inline-template=false --ssr=false`,
+          `npx -y @angular/cli@${angularVersion} new ${dirName} --directory=. --style=scss --routing=true --ssr=false --skip-git=false`,
           execOpts
         )
     },

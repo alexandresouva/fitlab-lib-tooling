@@ -1,0 +1,14 @@
+<div class="card">
+  <h2>Welcome to <%= classify(name) %> Remote Feature</h2>
+  <p>This micro frontend is running locally in isolation.</p>
+  
+  <div class="auth-box">
+    <h3>🔐 Security Context</h3>
+    <p><strong>User Token:</strong> {{ token }}</p>
+    <p><strong>Admin Permission Check:</strong> 
+      <span [class.allowed]="hasAdminAccess" [class.denied]="!hasAdminAccess">
+        {{ hasAdminAccess ? 'ALLOWED' : 'DENIED' }}
+      </span>
+    </p>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { LayoutComponent } from './layout.component';
+
+@Component({
+  standalone: true,
+  imports: [LayoutComponent],
+  template: `
+    <app-layout>
+      <div id="test-content">Project Content</div>
+    </app-layout>
+  `,
+})
+class TestHostComponent {}
+
+describe('LayoutComponent', () => {
+  let fixture: ComponentFixture<TestHostComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [TestHostComponent, LayoutComponent],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(TestHostComponent);
+    fixture.detectChanges();
+  });
+
+  it('should render header with project title', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    const headerTitle = compiled.querySelector('.header-title');
+    expect(headerTitle?.textContent).toContain('FitLab MFE: <%= classify(name) %>');
+  });
+
+  it('should project content into layout main', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    const projectedContent = compiled.querySelector('#test-content');
+    expect(projectedContent?.textContent).toBe('Project Content');
+  });
+});

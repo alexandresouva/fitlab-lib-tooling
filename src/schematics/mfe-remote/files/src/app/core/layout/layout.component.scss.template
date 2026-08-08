@@ -1,0 +1,25 @@
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: inherit;
+
+  .layout-header {
+    background: #1a1a1a;
+    color: #fff;
+    padding: 15px 20px;
+    border-bottom: 2px solid #333;
+
+    .header-title {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+  }
+
+  .layout-content {
+    flex: 1;
+    padding: 20px;
+    background: #fcfcfc;
+  }
+}
