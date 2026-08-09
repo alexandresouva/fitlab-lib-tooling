@@ -94,12 +94,14 @@ export function newApp(args: string[]): void {
       }
     },
     {
-      title: 'Creating initial commit...',
-      run: () =>
+      title: 'Formatting and creating initial commit...',
+      run: () => {
+        runCommand('npx prettier --write .', execOpts);
         runCommand(
           'git add -A && git commit -m "feat: bootstrap micro frontend workspace with fitlab governance"',
           execOpts
-        )
+        );
+      }
     }
   ];
 
