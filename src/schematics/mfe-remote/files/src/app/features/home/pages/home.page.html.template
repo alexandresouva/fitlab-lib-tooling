@@ -1,12 +1,12 @@
-<div class="card">
-  <h2>Welcome to <%= classify(name) %> Remote Feature</h2>
-  <p>This micro frontend is running locally in isolation.</p>
+<div class="card" data-testid="home-card">
+  <h2 data-testid="home-title">Welcome to <%= classify(name) %> Remote Feature</h2>
+  <p data-testid="home-description">This micro frontend is running locally in isolation.</p>
   
-  <div class="auth-box">
+  <div class="auth-box" data-testid="auth-box">
     <h3>🔐 Security Context</h3>
-    <p><strong>User Token:</strong> {{ token }}</p>
+    <p><strong>User Token:</strong> <span data-testid="user-token">{{ token }}</span></p>
     <p><strong>Admin Permission Check:</strong> 
-      <span [class.allowed]="hasAdminAccess" [class.denied]="!hasAdminAccess">
+      <span data-testid="admin-access-badge" [class.allowed]="hasAdminAccess" [class.denied]="!hasAdminAccess">
         {{ hasAdminAccess ? 'ALLOWED' : 'DENIED' }}
       </span>
     </p>

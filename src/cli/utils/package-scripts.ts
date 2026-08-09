@@ -18,9 +18,9 @@ export function ensurePackageScripts(cwd: string = process.cwd()): void {
     // Standard lifecycle & quality scripts for FitLab MFEs
     packageJson.scripts['start'] = 'ng serve';
     packageJson.scripts['build'] = 'ng build';
-    packageJson.scripts['test'] = 'ng test --watch=false --browsers=ChromeHeadlessCI';
+    packageJson.scripts['test'] = 'ng test --watch=false --browsers=ChromeHeadlessCI --code-coverage';
     packageJson.scripts['test:watch'] = 'ng test --watch=true';
-    packageJson.scripts['test:ci'] = 'ng test --watch=false --browsers=ChromeHeadlessCI';
+    packageJson.scripts['test:ci'] = 'ng test --watch=false --browsers=ChromeHeadlessCI --code-coverage';
     packageJson.scripts['lint'] = 'eslint .';
     packageJson.scripts['lint:fix'] = 'eslint . --fix';
     packageJson.scripts['prepare'] = 'husky';

@@ -19,12 +19,16 @@ module.exports = [
   // 1. Base TypeScript recommended rules
   ...tsEslint.configs.recommended,
 
-  // 2. TypeScript overrides
+  // 2. Strict TypeScript rules (Zero any policy)
   {
     files: ['src/**/*.ts'],
     rules: {
-      '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-empty-object-type': 'off'
+      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/no-empty-object-type': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }
+      ]
     }
   },
 
@@ -96,12 +100,16 @@ module.exports = [
           policies: [
             {
               from: {
-                element: { type: 'feature-application' },
-                fileInternalPath: '**/*.store.ts'
+                element: {
+                  type: 'feature-application',
+                  fileInternalPath: '**/*.store.ts'
+                }
               },
               disallow: [
                 {
-                  to: [{ element: { type: 'feature-data-access' } }]
+                  to: {
+                    element: { type: 'feature-data-access' }
+                  }
                 }
               ]
             },

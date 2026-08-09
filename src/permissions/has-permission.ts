@@ -1,12 +1,12 @@
 /**
  * Verifies if a user has a specific permission.
- * Supports exact matches, superuser wildcard (*), and scoped wildcards (recurso:*).
+ * Supports exact matches, superuser wildcard (*), and scoped wildcards (resource:*).
  *
- * @param userPermissions Array of permissions the user possesses.
+ * @param userPermissions Array of permissions the user possesses
  * @param requiredPermission The permission required for the action.
  */
 export function hasPermission(
-  userPermissions: string[] | undefined,
+  userPermissions: readonly string[] | undefined,
   requiredPermission: string
 ): boolean {
   if (!userPermissions) return false;

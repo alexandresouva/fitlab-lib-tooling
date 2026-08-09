@@ -1,12 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { clearMfeContext, mockMfeContext, TestHelper } from '@fitlab/tooling/testing';
 import { HomePage } from './home.page';
 
 describe('HomePage', () => {
   let component: HomePage;
   let fixture: ComponentFixture<HomePage>;
+  let helper: TestHelper<HomePage>;
 
   beforeEach(async () => {
-    delete (window as any).mfeContext;
+    clearMfeContext();
 
     await TestBed.configureTestingModule({
       imports: [HomePage],
@@ -14,10 +16,11 @@ describe('HomePage', () => {
 
     fixture = TestBed.createComponent(HomePage);
     component = fixture.componentInstance;
+    helper = new TestHelper(fixture);
   });
 
   afterEach(() => {
-    delete (window as any).mfeContext;
+    clearMfeContext();
   });
 
   it('should create the component', () => {
@@ -29,21 +32,51 @@ describe('HomePage', () => {
     expect(component.token).toBe('No context token');
     expect(component.hasAdminAccess).toBe(false);
 
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.denied')?.textContent).toContain('DENIED');
+    const badgeText = helper.queries.getTextContent('admin-access-badge');
+    expect(badgeText).toContain('DENIED');
   });
 
   it('should update token and grant admin access when mfeContext has matching permissions', () => {
-    (window as any).mfeContext = {
+    mockMfeContext({
       token: 'jwt-mock-token',
       permissions: ['<%= dasherize(name) %>:*'],
-    };
+      workspaceId: 'ws_fitlab',
+      user: {
+        id: 'usr_1',
+        name: 'Alexandre Souza',
+        email: 'alexandre@example.com',
+      },
+      theme: 'dark',
+      locale: 'pt-BR',
+    });
 
     fixture.detectChanges();
     expect(component.token).toBe('jwt-mock-token');
     expect(component.hasAdminAccess).toBe(true);
 
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.allowed')?.textContent).toContain('ALLOWED');
+    const badgeText = helper.queries.getTextContent('admin-access-badge');
+    expect(badgeText).toContain('ALLOWED');
+  });
+
+  it('should update token but deny admin access when mfeContext has non-matching permissions', () => {
+    mockMfeContext({
+      token: 'guest-jwt-token',
+      permissions: ['other-feature:*'],
+      workspaceId: 'ws_fitlab',
+      user: {
+        id: 'usr_2',
+        name: 'Guest User',
+        email: 'guest@example.com',
+      },
+      theme: 'light',
+      locale: 'en-US',
+    });
+
+    fixture.detectChanges();
+    expect(component.token).toBe('guest-jwt-token');
+    expect(component.hasAdminAccess).toBe(false);
+
+    const badgeText = helper.queries.getTextContent('admin-access-badge');
+    expect(badgeText).toContain('DENIED');
   });
 });

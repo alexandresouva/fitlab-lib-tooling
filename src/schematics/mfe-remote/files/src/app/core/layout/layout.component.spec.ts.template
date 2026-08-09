@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestHelper } from '@fitlab/tooling/testing';
 import { LayoutComponent } from './layout.component';
 
 @Component({
@@ -7,7 +8,7 @@ import { LayoutComponent } from './layout.component';
   imports: [LayoutComponent],
   template: `
     <app-layout>
-      <div id="test-content">Project Content</div>
+      <div data-testid="test-content">Project Content</div>
     </app-layout>
   `,
 })
@@ -15,6 +16,7 @@ class TestHostComponent {}
 
 describe('LayoutComponent', () => {
   let fixture: ComponentFixture<TestHostComponent>;
+  let helper: TestHelper<TestHostComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -22,18 +24,17 @@ describe('LayoutComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(TestHostComponent);
+    helper = new TestHelper(fixture);
     fixture.detectChanges();
   });
 
   it('should render header with project title', () => {
-    const compiled = fixture.nativeElement as HTMLElement;
-    const headerTitle = compiled.querySelector('.header-title');
-    expect(headerTitle?.textContent).toContain('FitLab MFE: <%= classify(name) %>');
+    const title = helper.queries.getTextContent('layout-title');
+    expect(title).toContain('FitLab MFE: <%= classify(name) %>');
   });
 
   it('should project content into layout main', () => {
-    const compiled = fixture.nativeElement as HTMLElement;
-    const projectedContent = compiled.querySelector('#test-content');
-    expect(projectedContent?.textContent).toBe('Project Content');
+    const projectedContent = helper.queries.getTextContent('test-content');
+    expect(projectedContent).toBe('Project Content');
   });
 });

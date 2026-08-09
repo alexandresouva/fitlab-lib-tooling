@@ -37,10 +37,20 @@ module.exports = function (config) {
       subdir: '.',
       reporters: [
         { type: 'html' },
-        { type: 'text-summary' }
-      ]
+        { type: 'text-summary' },
+        { type: 'text' },
+        { type: 'lcov' }
+      ],
+      check: {
+        global: {
+          statements: 85,
+          branches: 85,
+          functions: 85,
+          lines: 85
+        }
+      }
     },
-    reporters: ['progress', 'kjhtml'],
+    reporters: ['progress', 'kjhtml', 'coverage'],
     browsers: ['ChromeHeadlessCI'],
     customLaunchers: {
       ChromeHeadlessCI: {

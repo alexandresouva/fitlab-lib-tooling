@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { hasPermission } from '@fitlab/tooling';
+import { getMfeContext, hasPermission } from '@fitlab/tooling';
 
 @Component({
   selector: 'app-home-page',
@@ -11,10 +11,10 @@ export class HomePage implements OnInit {
   token = 'No context token';
   hasAdminAccess = false;
 
-  ngOnInit() {
-    const mfeContext = (window as any).mfeContext;
+  ngOnInit(): void {
+    const mfeContext = getMfeContext();
     if (mfeContext) {
-      this.token = mfeContext.token || 'Guest';
+      this.token = mfeContext.token;
       this.hasAdminAccess = hasPermission(mfeContext.permissions, '<%= dasherize(name) %>:*');
     }
   }
