@@ -24,6 +24,7 @@
     },
     "./ai-templates/*": "./ai-templates/*",
     "./doc-templates/*": "./doc-templates/*",
+    "./husky/*": "./husky/*",
     "./package.json": "./package.json"
   },
   "peerDependencies": {
