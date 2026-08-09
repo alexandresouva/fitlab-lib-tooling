@@ -8,6 +8,7 @@ export default tseslint.config(
       'node_modules/**',
       'coverage/**',
       '.husky/**',
+      '.angular/**',
       'src/schematics/mfe-remote/files/**',
       'eslint/**',
       'scripts/**'

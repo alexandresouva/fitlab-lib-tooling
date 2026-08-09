@@ -9,6 +9,7 @@ module.exports = [
       'dist/**',
       'coverage/**',
       '.husky/**',
+      '.angular/**',
       '**/*.config.js',
       '**/*.config.mjs',
       '**/*.conf.js',
