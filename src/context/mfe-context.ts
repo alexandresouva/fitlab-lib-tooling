@@ -26,5 +26,5 @@ export function getMfeContext(): MfeContext | undefined {
   if (typeof window === 'undefined') {
     return undefined;
   }
-  return (window as unknown as MfeWindow).mfeContext;
+  return (window as MfeWindow).mfeContext;
 }

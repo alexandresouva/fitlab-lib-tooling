@@ -1,40 +1,49 @@
-import { DebugElement } from '@angular/core';
 import { QueryHelper } from './query-helper';
 
-export class DispatchHelper<T> {
-  constructor(private readonly queries: QueryHelper<T>) {}
+export class DispatchHelper {
+  constructor(private readonly queries: QueryHelper) {}
 
   private getNativeElement<E extends HTMLElement = HTMLElement>(
     testId: string,
-    host?: DebugElement
+    host?: HTMLElement | Document
   ): E {
-    const debugEl = this.queries.query(testId, host);
+    const el = this.queries.query<E>(testId, host);
 
-    if (!debugEl) {
-      throw new Error(`[DispatchHelper] Element with testId="${testId}" not found`);
+    if (!el) {
+      throw new Error(
+        `[DispatchHelper] Element with testId="${testId}" not found`
+      );
     }
 
-    return debugEl.nativeElement as E;
+    return el;
   }
 
-  click(testId: string, host?: DebugElement): void {
+  click(testId: string, host?: HTMLElement | Document): void {
     const el = this.getNativeElement(testId, host);
-    el.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+    el.dispatchEvent(
+      new MouseEvent('click', { bubbles: true, cancelable: true })
+    );
   }
 
-  input(testId: string, value: string, host?: DebugElement): void {
+  input(testId: string, value: string, host?: HTMLElement | Document): void {
     const el = this.getNativeElement<HTMLInputElement>(testId, host);
     el.value = value;
-    el.dispatchEvent(new InputEvent('input', { bubbles: true, cancelable: true }));
+    el.dispatchEvent(
+      new InputEvent('input', { bubbles: true, cancelable: true })
+    );
   }
 
-  checkboxChange(testId: string, checked: boolean, host?: DebugElement): void {
+  checkboxChange(
+    testId: string,
+    checked: boolean,
+    host?: HTMLElement | Document
+  ): void {
     const el = this.getNativeElement<HTMLInputElement>(testId, host);
     el.checked = checked;
     el.dispatchEvent(new Event('change', { bubbles: true, cancelable: true }));
   }
 
-  submit(testId: string, host?: DebugElement): void {
+  submit(testId: string, host?: HTMLElement | Document): void {
     const el = this.getNativeElement<HTMLFormElement>(testId, host);
     el.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
   }

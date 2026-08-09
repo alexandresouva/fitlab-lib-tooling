@@ -17,9 +17,22 @@
       "import": "./dist/esm/testing/index.js",
       "default": "./dist/testing/index.js"
     },
+    "./testing/angular": {
+      "types": "./dist/testing/angular/index.d.ts",
+      "import": "./dist/esm/testing/angular/index.js",
+      "default": "./dist/testing/angular/index.js"
+    },
     "./ai-templates/*": "./ai-templates/*",
     "./doc-templates/*": "./doc-templates/*",
     "./package.json": "./package.json"
+  },
+  "peerDependencies": {
+    "@angular/core": ">=18.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@angular/core": {
+      "optional": true
+    }
   },
   "bin": {
     "fitlab-tooling": "./dist/cli/index.js"

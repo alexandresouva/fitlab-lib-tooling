@@ -1,11 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { clearMfeContext, mockMfeContext, TestHelper } from '@fitlab/tooling/testing';
+import { clearMfeContext, mockMfeContext } from '@fitlab/tooling/testing';
+import { AngularTestHelper } from '@fitlab/tooling/testing/angular';
 import { HomePage } from './home.page';
 
 describe('HomePage', () => {
   let component: HomePage;
   let fixture: ComponentFixture<HomePage>;
-  let helper: TestHelper<HomePage>;
+  let helper: AngularTestHelper<HomePage>;
 
   beforeEach(async () => {
     clearMfeContext();
@@ -16,7 +17,7 @@ describe('HomePage', () => {
 
     fixture = TestBed.createComponent(HomePage);
     component = fixture.componentInstance;
-    helper = new TestHelper(fixture);
+    helper = new AngularTestHelper(fixture);
   });
 
   afterEach(() => {

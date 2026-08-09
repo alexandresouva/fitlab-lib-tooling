@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { mockMfeContext, clearMfeContext } from './mock-context';
-import { getMfeContext } from '../context/mfe-context';
+import { getMfeContext } from '../../context/mfe-context';
 
 describe('mock-context', () => {
   beforeEach(() => {
@@ -38,7 +38,7 @@ describe('mock-context', () => {
     expect(Object.isFrozen(ctx?.user)).toBe(true);
   });
 
-  it('should clear mock context with clearMfeContext or null', () => {
+  it('should clear mock context with clearMfeContext', () => {
     mockMfeContext({ token: 'test-token' });
     expect(getMfeContext()).toBeDefined();
 

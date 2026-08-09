@@ -1,14 +1,14 @@
 import { DebugElement } from '@angular/core';
-import { QueryHelper } from './query-helper';
+import { AngularQueryHelper } from './angular-query-helper';
 
-export class TriggerHelper<T> {
-  constructor(private readonly queries: QueryHelper<T>) {}
+export class AngularTriggerHelper<T> {
+  constructor(private readonly queries: AngularQueryHelper<T>) {}
 
   private getDebugElement(testId: string, host?: DebugElement): DebugElement {
     const el = this.queries.query(testId, host);
 
     if (!el) {
-      throw new Error(`[TriggerHelper] Element with testId="${testId}" not found`);
+      throw new Error(`[AngularTriggerHelper] Element with testId="${testId}" not found`);
     }
 
     return el;

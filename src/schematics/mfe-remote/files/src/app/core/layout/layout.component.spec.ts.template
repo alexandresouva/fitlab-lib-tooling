@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TestHelper } from '@fitlab/tooling/testing';
+import { AngularTestHelper } from '@fitlab/tooling/testing/angular';
 import { LayoutComponent } from './layout.component';
 
 @Component({
@@ -16,7 +16,7 @@ class TestHostComponent {}
 
 describe('LayoutComponent', () => {
   let fixture: ComponentFixture<TestHostComponent>;
-  let helper: TestHelper<TestHostComponent>;
+  let helper: AngularTestHelper<TestHostComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -24,7 +24,7 @@ describe('LayoutComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(TestHostComponent);
-    helper = new TestHelper(fixture);
+    helper = new AngularTestHelper(fixture);
     fixture.detectChanges();
   });
 
