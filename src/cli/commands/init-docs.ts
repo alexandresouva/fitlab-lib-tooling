@@ -27,8 +27,9 @@ export function initDocs(cwd: string = process.cwd()): void {
     console.log(
       '✓ Created docs/ directory with architecture, testing guidelines, and engineering templates.'
     );
-  } catch (err: any) {
-    console.error(`❌ Failed to copy documentation templates: ${err.message}`);
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error(`❌ Failed to copy documentation templates: ${msg}`);
     process.exit(1);
   }
 }

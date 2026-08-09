@@ -18,8 +18,9 @@ export function initAi(cwd: string = process.cwd()): void {
     } else {
       console.warn("⚠️  Template 'cursorrules' not found inside the package.");
     }
-  } catch (err: any) {
-    console.error(`❌ Failed to copy .cursorrules: ${err.message}`);
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error(`❌ Failed to copy .cursorrules: ${msg}`);
     process.exit(1);
   }
 
@@ -32,8 +33,9 @@ export function initAi(cwd: string = process.cwd()): void {
     } else {
       console.warn("⚠️  Template folder '.agents' not found inside the package.");
     }
-  } catch (err: any) {
-    console.error(`❌ Failed to copy .agents folder: ${err.message}`);
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error(`❌ Failed to copy .agents folder: ${msg}`);
     process.exit(1);
   }
 }

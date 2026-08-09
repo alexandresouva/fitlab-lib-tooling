@@ -26,8 +26,9 @@ export function runStep(
   try {
     console.log(`\n📦 ${stepNumber}/${totalSteps} ${title}`);
     task();
-  } catch (err: any) {
-    console.error(`❌ Failed during step "${title}": ${err.message}`);
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error(`❌ Failed during step "${title}": ${msg}`);
     process.exit(1);
   }
 }

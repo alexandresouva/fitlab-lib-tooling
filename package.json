@@ -39,6 +39,8 @@
   },
   "schematics": "./dist/schematics/collection.json",
   "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "build": "node scripts/prebuild.mjs && tsc -p tsconfig.lib.json && tsc -p tsconfig.esm.json && node scripts/postbuild.mjs",
     "test": "vitest run",
     "prepare": "husky"

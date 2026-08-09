@@ -15,8 +15,9 @@ export function initLint(cwd: string = process.cwd()): void {
       { stdio: 'ignore', cwd }
     );
     console.log('✓ ESLint peer dependencies installed successfully.');
-  } catch (err: any) {
-    console.error(`❌ Failed to install ESLint dependencies: ${err.message}`);
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error(`❌ Failed to install ESLint dependencies: ${msg}`);
     process.exit(1);
   }
 
@@ -41,8 +42,9 @@ export default [
     console.log(
       '✓ Created eslint.config.mjs pointing to @fitlab/tooling/eslint'
     );
-  } catch (err: any) {
-    console.error(`❌ Failed to create eslint.config.mjs: ${err.message}`);
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error(`❌ Failed to create eslint.config.mjs: ${msg}`);
     process.exit(1);
   }
 
@@ -60,9 +62,10 @@ export default [
         'utf8'
       );
       console.log('✓ Added "lint" and "lint:fix" scripts to package.json');
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
       console.error(
-        `❌ Failed to update package.json with lint scripts: ${err.message}`
+        `❌ Failed to update package.json with lint scripts: ${msg}`
       );
       process.exit(1);
     }

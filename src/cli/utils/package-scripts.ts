@@ -26,7 +26,8 @@ export function ensurePackageScripts(cwd: string = process.cwd()): void {
     packageJson.scripts['prepare'] = 'husky';
 
     fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2), 'utf8');
-  } catch (err: any) {
-    console.error(`❌ Failed to synchronize package.json scripts: ${err.message}`);
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error(`❌ Failed to synchronize package.json scripts: ${msg}`);
   }
 }

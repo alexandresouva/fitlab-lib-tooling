@@ -13,8 +13,9 @@ export function initHooks(cwd: string = process.cwd()): void {
       { stdio: 'ignore', cwd }
     );
     console.log('✓ Peer dependencies installed successfully.');
-  } catch (err: any) {
-    console.error(`❌ Failed to install dependencies: ${err.message}`);
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error(`❌ Failed to install dependencies: ${msg}`);
     process.exit(1);
   }
 
@@ -23,8 +24,9 @@ export function initHooks(cwd: string = process.cwd()): void {
     console.log("   Running 'npx husky init'...");
     execSync('npx husky init', { stdio: 'ignore', cwd });
     console.log('✓ Husky initialized successfully.');
-  } catch (err: any) {
-    console.error(`❌ Failed to initialize Husky: ${err.message}`);
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error(`❌ Failed to initialize Husky: ${msg}`);
     process.exit(1);
   }
 
@@ -35,8 +37,9 @@ export function initHooks(cwd: string = process.cwd()): void {
   try {
     fs.writeFileSync(commitlintPath, commitlintContent, { encoding: 'utf8' });
     console.log('✓ Created commitlint.config.js extending @fitlab/tooling');
-  } catch (err: any) {
-    console.error(`❌ Failed to create commitlint.config.js: ${err.message}`);
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error(`❌ Failed to create commitlint.config.js: ${msg}`);
     process.exit(1);
   }
 
@@ -50,8 +53,9 @@ export function initHooks(cwd: string = process.cwd()): void {
       mode: 0o755
     });
     console.log('✓ Configured commit-msg hook for Commitlint.');
-  } catch (err: any) {
-    console.error(`❌ Failed to create .husky/commit-msg: ${err.message}`);
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error(`❌ Failed to create .husky/commit-msg: ${msg}`);
     process.exit(1);
   }
 
@@ -65,8 +69,9 @@ export function initHooks(cwd: string = process.cwd()): void {
       mode: 0o755
     });
     console.log('✓ Configured pre-commit hook to run build & test.');
-  } catch (err: any) {
-    console.error(`❌ Failed to create .husky/pre-commit: ${err.message}`);
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error(`❌ Failed to create .husky/pre-commit: ${msg}`);
     process.exit(1);
   }
 }

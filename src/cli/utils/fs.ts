@@ -8,8 +8,9 @@ export function writeFileSafely(filePath: string, content: string, mode?: number
       fs.mkdirSync(dir, { recursive: true });
     }
     fs.writeFileSync(filePath, content, { encoding: 'utf8', mode });
-  } catch (err: any) {
-    console.error(`❌ Failed to write "${path.basename(filePath)}": ${err.message}`);
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error(`❌ Failed to write "${path.basename(filePath)}": ${msg}`);
     process.exit(1);
   }
 }
