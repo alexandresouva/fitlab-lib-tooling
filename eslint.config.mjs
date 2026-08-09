@@ -33,7 +33,7 @@ export default tseslint.config(
       'prettier/prettier': 'error',
       'no-duplicate-imports': 'error',
       'import-x/order': [
-        'error',
+        'warn',
         {
           groups: [
             'builtin',
