@@ -30,7 +30,7 @@ export default tseslint.config(
         'error',
         { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }
       ],
-      'prettier/prettier': 'error',
+      'prettier/prettier': 'warn',
       'no-duplicate-imports': 'error',
       'import-x/order': [
         'warn',

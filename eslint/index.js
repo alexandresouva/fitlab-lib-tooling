@@ -43,7 +43,7 @@ module.exports = [
       'import-x': importX
     },
     rules: {
-      'prettier/prettier': 'error',
+      'prettier/prettier': 'warn',
       'no-duplicate-imports': 'error',
       'import-x/order': [
         'warn',
