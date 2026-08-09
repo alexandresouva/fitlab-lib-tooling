@@ -1,39 +1,45 @@
-import * as fs from "node:fs";
-import * as path from "node:path";
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 
 export function initAi(cwd: string = process.cwd()): void {
-  console.log("⚙️  Setting up AI Coding Assistant Rules and Custom Skills...");
+  console.log('⚙️  Setting up AI Coding Assistant Rules and Custom Skills...');
 
   // __dirname points to package_root/dist/cli/commands
-  const sourceDir = path.resolve(__dirname, "..", "..", "..", "ai-templates");
-  const targetCursorrules = path.join(cwd, ".cursorrules");
-  const targetAgents = path.join(cwd, ".agents");
+  const sourceDir = path.resolve(__dirname, '..', '..', '..', 'ai-templates');
+  const targetCursorrules = path.join(cwd, '.cursorrules');
+  const targetAgents = path.join(cwd, '.agents');
 
   // 1. Copy .cursorrules
   try {
-    const srcCursorrules = path.join(sourceDir, "cursorrules");
+    const srcCursorrules = path.join(sourceDir, 'cursorrules');
     if (fs.existsSync(srcCursorrules)) {
       fs.cpSync(srcCursorrules, targetCursorrules);
-      console.log("✓ Created .cursorrules in the repository root.");
+      console.log('✓ Created .cursorrules in the repository root.');
     } else {
       console.warn("⚠️  Template 'cursorrules' not found inside the package.");
     }
-  } catch (err: any) {
-    console.error(`❌ Failed to copy .cursorrules: ${err.message}`);
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error(`❌ Failed to copy .cursorrules: ${msg}`);
     process.exit(1);
   }
 
   // 2. Copy .agents directory recursively
   try {
-    const srcAgents = path.join(sourceDir, ".agents");
+    const srcAgents = path.join(sourceDir, '.agents');
     if (fs.existsSync(srcAgents)) {
       fs.cpSync(srcAgents, targetAgents, { recursive: true });
-      console.log("✓ Created .agents/ folder with custom rules, skills, and workflows.");
+      console.log(
+        '✓ Created .agents/ folder with custom rules, skills, and workflows.'
+      );
     } else {
-      console.warn("⚠️  Template folder '.agents' not found inside the package.");
+      console.warn(
+        "⚠️  Template folder '.agents' not found inside the package."
+      );
     }
-  } catch (err: any) {
-    console.error(`❌ Failed to copy .agents folder: ${err.message}`);
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error(`❌ Failed to copy .agents folder: ${msg}`);
     process.exit(1);
   }
 }

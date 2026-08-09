@@ -1,0 +1,8 @@
+<div class="layout-container" data-testid="layout-container">
+  <header class="layout-header" data-testid="layout-header">
+    <h1 class="header-title" data-testid="layout-title">FitLab MFE: <%= classify(name) %></h1>
+  </header>
+  <main class="layout-content" data-testid="layout-content">
+    <ng-content />
+  </main>
+</div>

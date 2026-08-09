@@ -1,0 +1,25 @@
+import { Component, OnInit } from '@angular/core';
+
+import { getMfeContext, hasPermission } from '@fitlab/tooling';
+
+@Component({
+  selector: 'app-home-page',
+  standalone: true,
+  templateUrl: './home.page.html',
+  styleUrl: './home.page.scss'
+})
+export class HomePage implements OnInit {
+  token = 'No context token';
+  hasAdminAccess = false;
+
+  ngOnInit(): void {
+    const mfeContext = getMfeContext();
+    if (mfeContext) {
+      this.token = mfeContext.token;
+      this.hasAdminAccess = hasPermission(
+        mfeContext.permissions,
+        '<%= dasherize(name) %>:*'
+      );
+    }
+  }
+}
