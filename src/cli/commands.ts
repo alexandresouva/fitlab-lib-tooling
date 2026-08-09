@@ -1,8 +1,8 @@
 import { showHelp } from './commands/help';
-import { initLint } from './commands/init-lint';
-import { initHooks } from './commands/init-hooks';
 import { initAi } from './commands/init-ai';
 import { initDocs } from './commands/init-docs';
+import { initHooks } from './commands/init-hooks';
+import { initLint } from './commands/init-lint';
 import { newApp } from './commands/new-app';
 import { ensurePackageScripts } from './utils/package-scripts';
 

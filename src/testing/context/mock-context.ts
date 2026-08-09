@@ -7,10 +7,10 @@ const DEFAULT_MOCK_CONTEXT: MfeContext = Object.freeze({
   user: Object.freeze({
     id: 'usr_mock_123',
     name: 'Mock User',
-    email: 'mock@example.com',
+    email: 'mock@example.com'
   }),
   theme: 'light',
-  locale: 'en-US',
+  locale: 'en-US'
 });
 
 /**
@@ -27,7 +27,7 @@ export function mockMfeContext(context?: Partial<MfeContext>): void {
       : DEFAULT_MOCK_CONTEXT.permissions,
     user: context?.user
       ? Object.freeze({ ...context.user })
-      : DEFAULT_MOCK_CONTEXT.user,
+      : DEFAULT_MOCK_CONTEXT.user
   });
 }
 

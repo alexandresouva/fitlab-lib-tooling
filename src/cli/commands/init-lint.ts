@@ -1,6 +1,6 @@
+import { execSync } from 'node:child_process';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { execSync } from 'node:child_process';
 
 const PRETTIER_CONFIG = {
   singleQuote: true,
@@ -24,18 +24,22 @@ package-lock.json
 `;
 
 export function initLint(cwd: string = process.cwd()): void {
-  console.log('⚙️  Setting up ESLint, Prettier & Architecture Boundaries...');
+  console.log(
+    '⚙️  Setting up ESLint, Prettier, Import Order & Architecture Boundaries...'
+  );
 
   // 1. Install peer devDependencies
   try {
     console.log(
-      '   Installing peer devDependencies (eslint, typescript-eslint, boundaries, prettier)...'
+      '   Installing peer devDependencies (eslint, typescript-eslint, boundaries, prettier, plugins)...'
     );
     execSync(
-      'npm install -D eslint typescript-eslint eslint-plugin-boundaries eslint-config-prettier prettier',
+      'npm install -D eslint typescript-eslint eslint-plugin-boundaries eslint-config-prettier prettier eslint-plugin-prettier eslint-plugin-import-x',
       { stdio: 'ignore', cwd }
     );
-    console.log('✓ ESLint and Prettier peer dependencies installed successfully.');
+    console.log(
+      '✓ ESLint, Prettier, and Import plugins installed successfully.'
+    );
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
     console.error(`❌ Failed to install linting dependencies: ${msg}`);
@@ -104,7 +108,9 @@ export default [
         JSON.stringify(packageJson, null, 2),
         'utf8'
       );
-      console.log('✓ Added "lint", "lint:fix", "format", and "format:check" scripts to package.json');
+      console.log(
+        '✓ Added "lint", "lint:fix", "format", and "format:check" scripts to package.json'
+      );
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       console.error(

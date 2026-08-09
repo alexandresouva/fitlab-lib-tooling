@@ -1,5 +1,7 @@
 const tsEslint = require('typescript-eslint');
 const boundaries = require('eslint-plugin-boundaries');
+const prettierPlugin = require('eslint-plugin-prettier');
+const importX = require('eslint-plugin-import-x');
 const eslintConfigPrettier = require('eslint-config-prettier');
 
 module.exports = [
@@ -33,7 +35,40 @@ module.exports = [
     }
   },
 
-  // 3. Architectural boundaries configuration for Micro Frontends (ng-cookbook standard)
+  // 3. Formatting and Import hygiene (Prettier + Universal Import ordering & deduplication)
+  {
+    files: ['src/**/*.ts'],
+    plugins: {
+      prettier: prettierPlugin,
+      'import-x': importX
+    },
+    rules: {
+      'prettier/prettier': 'error',
+      'no-duplicate-imports': 'error',
+      'import-x/order': [
+        'error',
+        {
+          groups: [
+            'builtin',
+            'external',
+            'internal',
+            ['parent', 'sibling', 'index']
+          ],
+          pathGroups: [
+            { pattern: 'react', group: 'external', position: 'before' },
+            { pattern: 'vue', group: 'external', position: 'before' },
+            { pattern: '@angular/**', group: 'external', position: 'before' },
+            { pattern: '@fitlab/**', group: 'internal', position: 'before' }
+          ],
+          pathGroupsExcludedImportTypes: ['builtin'],
+          alphabetize: { order: 'asc', caseInsensitive: true },
+          'newlines-between': 'always'
+        }
+      ]
+    }
+  },
+
+  // 4. Architectural boundaries configuration for Micro Frontends (ng-cookbook standard)
   {
     files: ['src/**/*.ts'],
     plugins: {
@@ -331,6 +366,6 @@ module.exports = [
     }
   },
 
-  // 4. Prettier override to disable conflicting formatting rules
+  // 5. Prettier override to disable conflicting formatting rules
   eslintConfigPrettier
 ];

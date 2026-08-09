@@ -1,9 +1,16 @@
-import { describe, it, expect, beforeEach } from 'vitest';
-import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import * as path from 'node:path';
 
-const collectionPath = path.join(__dirname, '../../../dist/schematics/collection.json');
+import { Tree } from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner,
+  UnitTestTree
+} from '@angular-devkit/schematics/testing';
+import { describe, it, expect, beforeEach } from 'vitest';
+
+const collectionPath = path.join(
+  __dirname,
+  '../../../dist/schematics/collection.json'
+);
 
 describe('mfe-remote schematic', () => {
   let runner: SchematicTestRunner;
@@ -51,7 +58,11 @@ describe('mfe-remote schematic', () => {
   });
 
   it('should clean Angular boilerplate files and generate MFE templates', async () => {
-    const resultTree = await runner.runSchematic('mfe-remote', { name: 'auth', port: 4205 }, tree);
+    const resultTree = await runner.runSchematic(
+      'mfe-remote',
+      { name: 'auth', port: 4205 },
+      tree
+    );
 
     const appDir = '/src/app';
     // Boilerplate files removed
@@ -73,20 +84,34 @@ describe('mfe-remote schematic', () => {
   });
 
   it('should update angular.json with karmaConfig', async () => {
-    const resultTree = await runner.runSchematic('mfe-remote', { name: 'auth', port: 4205 }, tree);
+    const resultTree = await runner.runSchematic(
+      'mfe-remote',
+      { name: 'auth', port: 4205 },
+      tree
+    );
     const angularJson = JSON.parse(resultTree.readContent('/angular.json'));
 
-    expect(angularJson.projects['fitlab-mfe-auth'].architect.test.options.karmaConfig).toBe('karma.conf.js');
+    expect(
+      angularJson.projects['fitlab-mfe-auth'].architect.test.options.karmaConfig
+    ).toBe('karma.conf.js');
   });
 
   it('should update package.json with standard start, build, and test scripts', async () => {
-    const resultTree = await runner.runSchematic('mfe-remote', { name: 'auth', port: 4205 }, tree);
+    const resultTree = await runner.runSchematic(
+      'mfe-remote',
+      { name: 'auth', port: 4205 },
+      tree
+    );
     const packageJson = JSON.parse(resultTree.readContent('/package.json'));
 
     expect(packageJson.scripts.start).toBe('ng serve');
     expect(packageJson.scripts.build).toBe('ng build');
-    expect(packageJson.scripts.test).toBe('ng test --watch=false --browsers=ChromeHeadlessCI');
+    expect(packageJson.scripts.test).toBe(
+      'ng test --watch=false --browsers=ChromeHeadlessCI'
+    );
     expect(packageJson.scripts['test:watch']).toBe('ng test --watch=true');
-    expect(packageJson.scripts['test:ci']).toBe('ng test --watch=false --browsers=ChromeHeadlessCI');
+    expect(packageJson.scripts['test:ci']).toBe(
+      'ng test --watch=false --browsers=ChromeHeadlessCI'
+    );
   });
 });

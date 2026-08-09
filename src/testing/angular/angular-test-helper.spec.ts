@@ -1,6 +1,8 @@
 import { DebugElement } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
+
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+
 import { AngularQueryHelper } from './angular-query-helper';
 import { AngularTestHelper } from './angular-test-helper';
 import { AngularTriggerHelper } from './angular-trigger-helper';
@@ -20,30 +22,30 @@ describe('Angular Testing Helpers', () => {
       textContent: '  Hello Angular  ',
       value: 'Angular Value',
       checked: true,
-      dispatchEvent: vi.fn(),
+      dispatchEvent: vi.fn()
     } as unknown as HTMLInputElement;
 
     childDebugEl = {
       nativeElement: nativeEl,
       componentInstance: instance,
-      triggerEventHandler: vi.fn(),
+      triggerEventHandler: vi.fn()
     } as unknown as DebugElement;
 
     rootDebugEl = {
       nativeElement: {
-        querySelector: vi.fn(),
+        querySelector: vi.fn()
       },
       query: vi.fn((predicate: (node: DebugElement) => boolean) => {
         return predicate(childDebugEl) ? childDebugEl : null;
       }),
       queryAll: vi.fn((predicate: (node: DebugElement) => boolean) => {
         return predicate(childDebugEl) ? [childDebugEl] : [];
-      }),
+      })
     } as unknown as DebugElement;
 
     fixture = {
       debugElement: rootDebugEl,
-      nativeElement: rootDebugEl.nativeElement,
+      nativeElement: rootDebugEl.nativeElement
     } as unknown as ComponentFixture<unknown>;
   });
 
@@ -71,7 +73,9 @@ describe('Angular Testing Helpers', () => {
     });
 
     it('should get component instance', () => {
-      const comp = queries.getComponentInstance<{ name: string }>('target-input');
+      const comp = queries.getComponentInstance<{ name: string }>(
+        'target-input'
+      );
       expect(comp?.name).toBe('TestComponent');
     });
 
@@ -112,26 +116,32 @@ describe('Angular Testing Helpers', () => {
 
     it('should trigger click event', () => {
       trigger.click('target-input');
-      expect(childDebugEl.triggerEventHandler).toHaveBeenCalledWith('click', null);
+      expect(childDebugEl.triggerEventHandler).toHaveBeenCalledWith(
+        'click',
+        null
+      );
     });
 
     it('should trigger input event with target value', () => {
       trigger.input('target-input', 'new text');
       expect(childDebugEl.triggerEventHandler).toHaveBeenCalledWith('input', {
-        target: { value: 'new text' },
+        target: { value: 'new text' }
       });
     });
 
     it('should trigger checkboxChange event with target checked', () => {
       trigger.checkboxChange('target-input', false);
       expect(childDebugEl.triggerEventHandler).toHaveBeenCalledWith('change', {
-        target: { checked: false },
+        target: { checked: false }
       });
     });
 
     it('should trigger submit event', () => {
       trigger.submit('target-input');
-      expect(childDebugEl.triggerEventHandler).toHaveBeenCalledWith('submit', null);
+      expect(childDebugEl.triggerEventHandler).toHaveBeenCalledWith(
+        'submit',
+        null
+      );
     });
 
     it('should throw error when triggering on non-existent element', () => {

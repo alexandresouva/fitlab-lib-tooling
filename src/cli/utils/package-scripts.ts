@@ -18,16 +18,22 @@ export function ensurePackageScripts(cwd: string = process.cwd()): void {
     // Standard lifecycle & quality scripts for FitLab MFEs
     packageJson.scripts['start'] = 'ng serve';
     packageJson.scripts['build'] = 'ng build';
-    packageJson.scripts['test'] = 'ng test --watch=false --browsers=ChromeHeadlessCI --code-coverage';
+    packageJson.scripts['test'] =
+      'ng test --watch=false --browsers=ChromeHeadlessCI --code-coverage';
     packageJson.scripts['test:watch'] = 'ng test --watch=true';
-    packageJson.scripts['test:ci'] = 'ng test --watch=false --browsers=ChromeHeadlessCI --code-coverage';
+    packageJson.scripts['test:ci'] =
+      'ng test --watch=false --browsers=ChromeHeadlessCI --code-coverage';
     packageJson.scripts['lint'] = 'eslint .';
     packageJson.scripts['lint:fix'] = 'eslint . --fix';
     packageJson.scripts['format'] = 'prettier --write .';
     packageJson.scripts['format:check'] = 'prettier --check .';
     packageJson.scripts['prepare'] = 'husky';
 
-    fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2), 'utf8');
+    fs.writeFileSync(
+      packageJsonPath,
+      JSON.stringify(packageJson, null, 2),
+      'utf8'
+    );
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
     console.error(`❌ Failed to synchronize package.json scripts: ${msg}`);

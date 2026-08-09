@@ -1,4 +1,5 @@
 import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+
 import { Schema } from '../schema';
 
 export function updateAngularJson(options: Schema): Rule {

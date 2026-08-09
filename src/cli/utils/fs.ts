@@ -1,7 +1,11 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 
-export function writeFileSafely(filePath: string, content: string, mode?: number): void {
+export function writeFileSafely(
+  filePath: string,
+  content: string,
+  mode?: number
+): void {
   try {
     const dir = path.dirname(filePath);
     if (!fs.existsSync(dir)) {

@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+
 import { getMfeContext, MfeContext } from './mfe-context';
 
 describe('mfe-context', () => {

@@ -1,4 +1,5 @@
 import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+
 import { Schema } from '../schema';
 
 export function cleanBoilerplate(options: Schema): Rule {
@@ -42,7 +43,9 @@ export function cleanBoilerplate(options: Schema): Rule {
       }
     }
 
-    context.logger.info('✓ Cleaned standard Angular boilerplate files and updated .gitignore.');
+    context.logger.info(
+      '✓ Cleaned standard Angular boilerplate files and updated .gitignore.'
+    );
     return tree;
   };
 }

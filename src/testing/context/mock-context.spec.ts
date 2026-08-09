@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+
 import { mockMfeContext, clearMfeContext } from './mock-context';
 import { getMfeContext } from '../../context/mfe-context';
 

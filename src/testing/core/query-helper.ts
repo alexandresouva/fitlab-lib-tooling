@@ -1,7 +1,5 @@
 type ElementWithValue =
-  | HTMLInputElement
-  | HTMLTextAreaElement
-  | HTMLSelectElement;
+  HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
 
 export class QueryHelper {
   constructor(private readonly container: HTMLElement | Document) {}

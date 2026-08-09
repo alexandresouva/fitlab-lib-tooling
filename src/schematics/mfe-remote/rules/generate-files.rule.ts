@@ -1,3 +1,4 @@
+import { strings } from '@angular-devkit/core';
 import {
   Rule,
   SchematicContext,
@@ -9,7 +10,7 @@ import {
   mergeWith,
   MergeStrategy
 } from '@angular-devkit/schematics';
-import { strings } from '@angular-devkit/core';
+
 import { Schema } from '../schema';
 
 export function generateFiles(options: Schema): Rule {

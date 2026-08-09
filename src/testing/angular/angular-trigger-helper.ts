@@ -1,4 +1,5 @@
 import { DebugElement } from '@angular/core';
+
 import { AngularQueryHelper } from './angular-query-helper';
 
 export class AngularTriggerHelper<T> {
@@ -8,7 +9,9 @@ export class AngularTriggerHelper<T> {
     const el = this.queries.query(testId, host);
 
     if (!el) {
-      throw new Error(`[AngularTriggerHelper] Element with testId="${testId}" not found`);
+      throw new Error(
+        `[AngularTriggerHelper] Element with testId="${testId}" not found`
+      );
     }
 
     return el;

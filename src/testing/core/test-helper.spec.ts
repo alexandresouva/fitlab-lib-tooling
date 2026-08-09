@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
+
 import { TestHelper } from './test-helper';
 
 describe('TestHelper (Agnostic)', () => {
@@ -23,11 +24,11 @@ describe('TestHelper (Agnostic)', () => {
         if (selector === '[data-testid="item"]') {
           return [
             { textContent: 'Item 1' },
-            { textContent: 'Item 2' },
+            { textContent: 'Item 2' }
           ] as unknown as NodeListOf<HTMLElement>;
         }
         return [] as unknown as NodeListOf<HTMLElement>;
-      },
+      }
     } as unknown as HTMLDivElement;
 
     helper = new TestHelper(container);

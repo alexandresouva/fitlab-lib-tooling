@@ -1,4 +1,5 @@
 import { ComponentFixture } from '@angular/core/testing';
+
 import { DispatchHelper, QueryHelper } from '../core';
 import { AngularQueryHelper } from './angular-query-helper';
 import { AngularTriggerHelper } from './angular-trigger-helper';

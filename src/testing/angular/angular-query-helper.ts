@@ -2,9 +2,7 @@ import { DebugElement } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 
 type ElementWithValue =
-  | HTMLInputElement
-  | HTMLTextAreaElement
-  | HTMLSelectElement;
+  HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
 
 export class AngularQueryHelper<T> {
   constructor(private readonly fixture: ComponentFixture<T>) {}
@@ -31,8 +29,7 @@ export class AngularQueryHelper<T> {
     host: DebugElement = this.root
   ): C | null {
     const instance = this.query(testId, host)?.componentInstance as
-      | C
-      | undefined;
+      C | undefined;
     return instance ?? null;
   }
 
