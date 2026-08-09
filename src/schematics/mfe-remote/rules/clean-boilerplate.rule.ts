@@ -33,7 +33,16 @@ export function cleanBoilerplate(options: Schema): Rule {
       }
     });
 
-    context.logger.info('✓ Cleaned standard Angular boilerplate files.');
+    const gitignoreBuffer = tree.read('.gitignore');
+    if (gitignoreBuffer) {
+      let gitignore = gitignoreBuffer.toString('utf-8');
+      if (!gitignore.includes('tsconfig.federation.json')) {
+        gitignore += '\n# Native Federation\ntsconfig.federation.json\n';
+        tree.overwrite('.gitignore', gitignore);
+      }
+    }
+
+    context.logger.info('✓ Cleaned standard Angular boilerplate files and updated .gitignore.');
     return tree;
   };
 }
