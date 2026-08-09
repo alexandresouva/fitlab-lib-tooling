@@ -55,12 +55,16 @@ export function newApp(args: string[]): void {
 
   const steps = [
     {
-      title: 'Initializing blank Angular workspace...',
-      run: () =>
+      title: 'Initializing blank Angular workspace and Git repository...',
+      run: () => {
         runCommand(
-          `npx -y @angular/cli@${angularVersion} new ${dirName} --directory=. --style=scss --routing=true --ssr=false --skip-git=false`,
+          `npx -y @angular/cli@${angularVersion} new ${dirName} --directory=. --style=scss --routing=true --ssr=false --skip-git=true`,
           execOpts
-        )
+        );
+        if (!fs.existsSync(path.join(targetDir, '.git'))) {
+          runCommand('git init -b main', execOpts);
+        }
+      }
     },
     {
       title: 'Integrating Native Federation...',
