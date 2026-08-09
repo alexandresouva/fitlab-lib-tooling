@@ -2,22 +2,43 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { execSync } from 'node:child_process';
 
+const PRETTIER_CONFIG = {
+  singleQuote: true,
+  trailingComma: 'none',
+  tabWidth: 2,
+  useTabs: false,
+  semi: true,
+  printWidth: 80,
+  bracketSpacing: true,
+  arrowParens: 'always',
+  htmlWhitespaceSensitivity: 'strict',
+  endOfLine: 'auto'
+};
+
+const PRETTIER_IGNORE = `dist
+coverage
+.angular
+.husky
+node_modules
+package-lock.json
+`;
+
 export function initLint(cwd: string = process.cwd()): void {
-  console.log('⚙️  Setting up ESLint Flat Config & Architecture Boundaries...');
+  console.log('⚙️  Setting up ESLint, Prettier & Architecture Boundaries...');
 
   // 1. Install peer devDependencies
   try {
     console.log(
-      '   Installing peer devDependencies (eslint, typescript-eslint, boundaries)...'
+      '   Installing peer devDependencies (eslint, typescript-eslint, boundaries, prettier)...'
     );
     execSync(
-      'npm install -D eslint typescript-eslint eslint-plugin-boundaries eslint-config-prettier',
+      'npm install -D eslint typescript-eslint eslint-plugin-boundaries eslint-config-prettier prettier',
       { stdio: 'ignore', cwd }
     );
-    console.log('✓ ESLint peer dependencies installed successfully.');
+    console.log('✓ ESLint and Prettier peer dependencies installed successfully.');
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
-    console.error(`❌ Failed to install ESLint dependencies: ${msg}`);
+    console.error(`❌ Failed to install linting dependencies: ${msg}`);
     process.exit(1);
   }
 
@@ -48,7 +69,27 @@ export default [
     process.exit(1);
   }
 
-  // 3. Update package.json scripts
+  // 3. Create .prettierrc and .prettierignore
+  const prettierRcPath = path.join(cwd, '.prettierrc');
+  const prettierIgnorePath = path.join(cwd, '.prettierignore');
+
+  try {
+    fs.writeFileSync(
+      prettierRcPath,
+      JSON.stringify(PRETTIER_CONFIG, null, 2) + '\n',
+      { encoding: 'utf8' }
+    );
+    fs.writeFileSync(prettierIgnorePath, PRETTIER_IGNORE, {
+      encoding: 'utf8'
+    });
+    console.log('✓ Created .prettierrc and .prettierignore');
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error(`❌ Failed to create Prettier configuration: ${msg}`);
+    process.exit(1);
+  }
+
+  // 4. Update package.json scripts
   const packageJsonPath = path.join(cwd, 'package.json');
   if (fs.existsSync(packageJsonPath)) {
     try {
@@ -56,12 +97,14 @@ export default [
       packageJson.scripts = packageJson.scripts || {};
       packageJson.scripts['lint'] = 'eslint .';
       packageJson.scripts['lint:fix'] = 'eslint . --fix';
+      packageJson.scripts['format'] = 'prettier --write .';
+      packageJson.scripts['format:check'] = 'prettier --check .';
       fs.writeFileSync(
         packageJsonPath,
         JSON.stringify(packageJson, null, 2),
         'utf8'
       );
-      console.log('✓ Added "lint" and "lint:fix" scripts to package.json');
+      console.log('✓ Added "lint", "lint:fix", "format", and "format:check" scripts to package.json');
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       console.error(

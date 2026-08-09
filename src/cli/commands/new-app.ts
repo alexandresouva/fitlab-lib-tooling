@@ -88,6 +88,14 @@ export function newApp(args: string[]): void {
         );
         runCommand(`npx fitlab-tooling init-all`, execOpts);
       }
+    },
+    {
+      title: 'Creating initial commit...',
+      run: () =>
+        runCommand(
+          'git add -A && git commit -m "feat: bootstrap micro frontend workspace with fitlab governance"',
+          execOpts
+        )
     }
   ];
 

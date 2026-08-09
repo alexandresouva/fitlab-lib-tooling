@@ -41,6 +41,8 @@
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "build": "node scripts/prebuild.mjs && tsc -p tsconfig.lib.json && tsc -p tsconfig.esm.json && node scripts/postbuild.mjs",
     "test": "vitest run",
     "prepare": "husky"
@@ -63,6 +65,7 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-boundaries": "^7.1.0",
     "husky": "^9.1.7",
+    "prettier": "^3.6.0",
     "typescript": "^5.5.4",
     "typescript-eslint": "^8.66.0",
     "vitest": "^4.1.10"

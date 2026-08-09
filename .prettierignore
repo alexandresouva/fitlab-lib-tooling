@@ -1,0 +1,7 @@
+dist
+coverage
+.angular
+.husky
+node_modules
+package-lock.json
+src/schematics/mfe-remote/files

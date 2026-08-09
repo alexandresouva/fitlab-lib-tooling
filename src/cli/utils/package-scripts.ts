@@ -23,6 +23,8 @@ export function ensurePackageScripts(cwd: string = process.cwd()): void {
     packageJson.scripts['test:ci'] = 'ng test --watch=false --browsers=ChromeHeadlessCI --code-coverage';
     packageJson.scripts['lint'] = 'eslint .';
     packageJson.scripts['lint:fix'] = 'eslint . --fix';
+    packageJson.scripts['format'] = 'prettier --write .';
+    packageJson.scripts['format:check'] = 'prettier --check .';
     packageJson.scripts['prepare'] = 'husky';
 
     fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2), 'utf8');
