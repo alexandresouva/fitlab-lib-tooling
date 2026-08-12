@@ -40,7 +40,7 @@ export const userDtoSchema = z.object({
   id: z.string(),
   first_name: z.string(),
   email: z.string().email(),
-  role: z.string().default('user'),
+  role: z.string().default('user')
 });
 
 export type UserDto = z.infer<typeof userDtoSchema>;
@@ -63,7 +63,7 @@ export class UserMapper {
     id: dto.id,
     fullName: dto.first_name,
     email: dto.email,
-    role: dto.role,
+    role: dto.role
   }));
 
   static toDomain(data: unknown): User {

@@ -38,11 +38,15 @@ import { ProductsStore } from './products.store';
 function setup() {
   const mockApi = {
     getProducts: vi.fn(),
-    getProduct: vi.fn(),
+    getProduct: vi.fn()
   };
 
   TestBed.configureTestingModule({
-    providers: [ProductsFacade, ProductsStore, { provide: ProductsApi, useValue: mockApi }],
+    providers: [
+      ProductsFacade,
+      ProductsStore,
+      { provide: ProductsApi, useValue: mockApi }
+    ]
   });
 
   const facade = TestBed.inject(ProductsFacade);
@@ -51,7 +55,7 @@ function setup() {
   return {
     facade,
     store,
-    mockApi,
+    mockApi
   };
 }
 
@@ -211,7 +215,7 @@ import { ProductCard } from './product-card.component';
 
 function setup() {
   TestBed.configureTestingModule({
-    imports: [ProductCard],
+    imports: [ProductCard]
   });
 
   const fixture = TestBed.createComponent(ProductCard);
@@ -226,7 +230,10 @@ describe('ProductCard', () => {
     const { fixture, helper } = setup();
 
     // Set Angular signal input
-    fixture.componentRef.setInput('product', { name: 'Dumb Product', price: 15 });
+    fixture.componentRef.setInput('product', {
+      name: 'Dumb Product',
+      price: 15
+    });
     fixture.detectChanges();
 
     expect(helper.queries.getTextContent('product-title')).toBe('Dumb Product');
@@ -234,7 +241,10 @@ describe('ProductCard', () => {
 
   it('should emit select output when clicked', () => {
     const { fixture, component, helper } = setup();
-    fixture.componentRef.setInput('product', { id: '123', name: 'Dumb Product' });
+    fixture.componentRef.setInput('product', {
+      id: '123',
+      name: 'Dumb Product'
+    });
     fixture.detectChanges();
 
     let emittedId: string | null = null;
@@ -296,8 +306,8 @@ it('should have no accessibility violations except known color contrast bugs', a
     rules: {
       // Disabling color-contrast rule due to third-party library bug
       // Upstream bug report: https://github.com/some-library/issues/4567
-      'color-contrast': { enabled: false },
-    },
+      'color-contrast': { enabled: false }
+    }
   });
 
   expect(results).toHaveNoViolations();
@@ -341,12 +351,14 @@ All mock data structures must be generated via factories defined under `@testing
 // src/app/testing/factories/products.factory.ts
 import { ProductDto } from '../../features/products/models/product.dto';
 
-export function createMockProductDto(overrides?: Partial<ProductDto>): ProductDto {
+export function createMockProductDto(
+  overrides?: Partial<ProductDto>
+): ProductDto {
   return {
     id: '1',
     title: 'Angular Cookbook',
     price: 89.9,
-    ...overrides,
+    ...overrides
   };
 }
 ```
@@ -416,7 +428,7 @@ export const test = base.extend<E2EFixtures>({
   loginPage: async ({ page }, use) => {
     const loginPage = new LoginPageObject(page);
     await use(loginPage);
-  },
+  }
 });
 
 export { expect } from '@playwright/test';

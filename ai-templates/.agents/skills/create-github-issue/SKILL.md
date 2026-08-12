@@ -11,44 +11,53 @@ This skill instructs the agent on how to generate and post structured issues to 
 
 > [!IMPORTANT]
 > **Strict Rules for Issue Creation**:
+>
 > - **Language**: All generated issue titles and bodies must be written in **English**.
 > - **No Phase/Sequential Prefixes**: Do not include prefixes such as `"Phase X:"`, `"Fase X:"`, or sequential numeric counters in the issue title. The title must focus strictly on the functional, business, or technical scope of the task (e.g., `"Linting & Formatting (ESLint + Prettier + EditorConfig)"` or `"User Authentication"`).
 > - **Labels**: Always determine and apply the appropriate label(s) based on the context (e.g., `bug`, `enhancement`, `feature`, `chore`, `documentation`).
 
 ### Format A: Technical Card (Default for Refactorings, Infra, and Quality)
-*   **Title:** `[Feature/Task Name]` (e.g. `Linting & Formatting (ESLint + Prettier + EditorConfig)`)
-*   **Issue Body:**
-    ```markdown
-    ## 📝 Context
-    [High-level explanation of why this task is needed and its impact on the project]
 
-    ## ⚙️ Technical Specifications
-    - [ ] [Technical sub-task 1]
-    - [ ] [Technical sub-task 2]
+- **Title:** `[Feature/Task Name]` (e.g. `Linting & Formatting (ESLint + Prettier + EditorConfig)`)
+- **Issue Body:**
+  ```markdown
+  ## 📝 Context
 
-    ## ✅ Acceptance Criteria
-    - [ ] [Technical acceptance/validation criteria 1]
-    - [ ] [Technical acceptance/validation criteria 2]
-    ```
+  [High-level explanation of why this task is needed and its impact on the project]
+
+  ## ⚙️ Technical Specifications
+
+  - [ ] [Technical sub-task 1]
+  - [ ] [Technical sub-task 2]
+
+  ## ✅ Acceptance Criteria
+
+  - [ ] [Technical acceptance/validation criteria 1]
+  - [ ] [Technical acceptance/validation criteria 2]
+  ```
 
 ### Format B: BDD Card / User Story (For User-Facing Features)
-*   **Title:** `[Feature Name]` (e.g. `User Authentication`)
-*   **Issue Body:**
-    ```markdown
-    ## 👤 User Story
-    **As a** [type of user]
-    **I want to** [action/feature]
-    **So that** [value/benefit]
 
-    ## 🎭 Acceptance Criteria (Gherkin BDD)
-    **Scenario:** [Scenario Title]
-      **Given** [initial context]
-      **When** [action performed]
-      **Then** [expected result]
+- **Title:** `[Feature Name]` (e.g. `User Authentication`)
+- **Issue Body:**
+  ```markdown
+  ## 👤 User Story
 
-    ## ✅ Implementation Checklist
-    - [ ] [Sub-task 1]
-    ```
+  **As a** [type of user]
+  **I want to** [action/feature]
+  **So that** [value/benefit]
+
+  ## 🎭 Acceptance Criteria (Gherkin BDD)
+
+  **Scenario:** [Scenario Title]
+  **Given** [initial context]
+  **When** [action performed]
+  **Then** [expected result]
+
+  ## ✅ Implementation Checklist
+
+  - [ ] [Sub-task 1]
+  ```
 
 ---
 
@@ -57,23 +66,30 @@ This skill instructs the agent on how to generate and post structured issues to 
 Follow these steps to post the issue on GitHub:
 
 ### Step 1: Retrieve Access Token
+
 Attempt to read the GitHub token from one of the following sources, in this order:
+
 1.  **Environment Variable**: `$GITHUB_TOKEN`
 2.  **GitHub CLI (if installed)**: Running `gh auth token`
-If no credentials are found, prompt the user in the chat to provide a temporary token in environment variable format before continuing.
+    If no credentials are found, prompt the user in the chat to provide a temporary token in environment variable format before continuing.
 
 ### Step 2: Prepare the Issue Body File
+
 Write the issue markdown body to a temporary file in the workspace to avoid quoting and formatting issues in the shell.
 **CRITICAL**: You MUST name this file exactly `temp_issue.md`. This specific filename is in the `.gitignore` allow list. Do NOT use names like `issue-body.md`.
 
 ### Step 3: Execute GitHub API Call
+
 If the `gh` CLI is installed and authenticated, execute:
+
 ```bash
 gh issue create --repo alexandresouva/ng-cookbook --title "TITLE_HERE" -F temp_issue.md --label "LABEL_NAME"
 ```
-*(Note: Remember to delete `temp_issue.md` after the issue is successfully created).*
+
+_(Note: Remember to delete `temp_issue.md` after the issue is successfully created)._
 
 Otherwise, use `curl` against the official REST API:
+
 ```bash
 curl -s -X POST \
   -H "Authorization: Bearer $TOKEN_FOUND" \
@@ -89,4 +105,5 @@ curl -s -X POST \
 }
 EOF
 ```
-*(Note: Ensure all quotes and special characters are properly escaped in the JSON body payload).*
+
+_(Note: Ensure all quotes and special characters are properly escaped in the JSON body payload)._
