@@ -59,9 +59,9 @@ export function initHooks(cwd: string = process.cwd()): void {
     process.exit(1);
   }
 
-  // 4. Configure .husky/pre-commit hook (runs build & test)
+  // 4. Configure .husky/pre-commit hook (runs lint, build & test)
   const preCommitHookPath = path.join(cwd, '.husky', 'pre-commit');
-  const preCommitHookContent = `npm run build && npm test\n`;
+  const preCommitHookContent = `npm run lint && npm run build && npm test\n`;
 
   try {
     fs.writeFileSync(preCommitHookPath, preCommitHookContent, {

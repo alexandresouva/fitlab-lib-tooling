@@ -6,7 +6,12 @@ fs.cpSync('src/schematics', 'dist/schematics', {
   filter: (src) => !src.endsWith('.ts')
 });
 
-// 2. Set executable permissions for CLI binary
+// 2. Copy styles assets
+if (fs.existsSync('styles')) {
+  fs.cpSync('styles', 'dist/styles', { recursive: true });
+}
+
+// 3. Set executable permissions for CLI binary
 if (fs.existsSync('dist/cli/index.js')) {
   fs.chmodSync('dist/cli/index.js', 0o755);
 }

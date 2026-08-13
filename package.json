@@ -12,6 +12,8 @@
       "default": "./dist/index.js"
     },
     "./eslint": "./eslint/index.js",
+    "./tokens.css": "./styles/tokens.css",
+    "./styles/*": "./styles/*",
     "./testing": {
       "types": "./dist/testing/index.d.ts",
       "import": "./dist/esm/testing/index.js",
