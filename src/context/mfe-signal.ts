@@ -1,4 +1,4 @@
-import { DestroyRef, Signal, inject, signal } from '@angular/core';
+import { DestroyRef, Injector, Signal, inject, signal } from '@angular/core';
 
 import { getMfeContext } from './mfe-context';
 import {
@@ -7,6 +7,13 @@ import {
   SHELL_EVENTS,
   listenMfeEvent
 } from '../events/mfe-events';
+
+export interface UseMfeSignalOptions {
+  /**
+   * Optional custom Injector to retrieve DestroyRef when called outside of an active injection context.
+   */
+  injector?: Injector;
+}
 
 function getFallbackInitialValue<E extends MfeEventName>(
   event: E
@@ -29,16 +36,20 @@ function getFallbackInitialValue<E extends MfeEventName>(
 }
 
 /**
- * Creates an Angular Signal connected to an MFE event with automatic cleanup on destroy
+ * Creates an Angular Signal connected to an MFE event with guaranteed automatic cleanup on destroy.
+ * Must be called within an active injection context or provided with an explicit Injector option.
  */
 export function useMfeSignal<E extends MfeEventName>(
   event: E,
-  initialValue?: EventPayload<E>
+  initialValue?: EventPayload<E>,
+  options?: UseMfeSignalOptions
 ): Signal<EventPayload<E>> {
+  const destroyRef = options?.injector
+    ? options.injector.get(DestroyRef)
+    : inject(DestroyRef);
+
   const resolvedInitial =
-    initialValue !== undefined
-      ? initialValue
-      : (getFallbackInitialValue(event) as EventPayload<E>);
+    initialValue ?? (getFallbackInitialValue(event) as EventPayload<E>);
 
   const sliceSignal = signal<EventPayload<E>>(resolvedInitial);
 
@@ -46,12 +57,7 @@ export function useMfeSignal<E extends MfeEventName>(
     sliceSignal.set(data);
   });
 
-  try {
-    const destroyRef = inject(DestroyRef, { optional: true });
-    destroyRef?.onDestroy(unsubscribe);
-  } catch {
-    // Graceful fallback when called outside an active injection context
-  }
+  destroyRef.onDestroy(unsubscribe);
 
   return sliceSignal.asReadonly();
 }

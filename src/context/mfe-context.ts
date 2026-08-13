@@ -2,6 +2,7 @@ export interface MfeUser {
   readonly id: string;
   readonly name: string;
   readonly email: string;
+  readonly avatarUrl?: string;
 }
 
 export type MfeTheme = 'light' | 'dark';
