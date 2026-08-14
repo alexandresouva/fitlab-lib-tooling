@@ -3,7 +3,7 @@ const { withNativeFederation, share } = require('@angular-architects/native-fede
 module.exports = withNativeFederation({
   name: '<%= dasherize(name) %>',
   exposes: {
-    './Component': './src/app/app.ts',
+    './routes': './src/app/app.routes.ts',
   },
   shared: {
     ...share({

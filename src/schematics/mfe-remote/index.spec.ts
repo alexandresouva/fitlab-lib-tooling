@@ -29,6 +29,17 @@ describe('mfe-remote schematic', () => {
             root: '',
             sourceRoot: 'src',
             architect: {
+              serve: {
+                builder: '@angular-architects/native-federation:build',
+                options: {
+                  target: 'fitlab-mfe-auth:serve-original:development',
+                  port: 4205
+                }
+              },
+              'serve-original': {
+                builder: '@angular-devkit/build-angular:dev-server',
+                options: {}
+              },
               test: {
                 builder: '@angular-devkit/build-angular:karma',
                 options: {}
@@ -83,17 +94,18 @@ describe('mfe-remote schematic', () => {
     expect(resultTree.exists('/src/app/app.spec.ts')).toBe(true);
   });
 
-  it('should update angular.json with karmaConfig', async () => {
+  it('should update angular.json with karmaConfig and dev ports', async () => {
     const resultTree = await runner.runSchematic(
       'mfe-remote',
       { name: 'auth', port: 4205 },
       tree
     );
     const angularJson = JSON.parse(resultTree.readContent('/angular.json'));
+    const project = angularJson.projects['fitlab-mfe-auth'];
 
-    expect(
-      angularJson.projects['fitlab-mfe-auth'].architect.test.options.karmaConfig
-    ).toBe('karma.conf.js');
+    expect(project.architect.test.options.karmaConfig).toBe('karma.conf.js');
+    expect(project.architect.serve.options.port).toBe(0);
+    expect(project.architect['serve-original'].options.port).toBe(4205);
   });
 
   it('should update package.json with standard start, build, and test scripts', async () => {
