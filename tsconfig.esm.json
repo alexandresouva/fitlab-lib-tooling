@@ -12,7 +12,10 @@
     "src/context/**/*",
     "src/permissions/**/*",
     "src/testing/**/*",
-    "src/version.ts"
+    "src/version.ts",
+    "src/react/**/*",
+    "src/vue/**/*",
+    "src/angular/**/*"
   ],
   "exclude": ["node_modules", "dist", "src/**/*.spec.ts"]
 }
