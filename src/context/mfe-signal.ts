@@ -1,10 +1,9 @@
 import { DestroyRef, Injector, Signal, inject, signal } from '@angular/core';
 
-import { getMfeContext } from './mfe-context';
+import { getFallbackInitialValue } from './mfe-fallback';
 import {
   EventPayload,
   MfeEventName,
-  SHELL_EVENTS,
   listenMfeEvent
 } from '../events/mfe-events';
 
@@ -13,26 +12,6 @@ export interface UseMfeSignalOptions {
    * Optional custom Injector to retrieve DestroyRef when called outside of an active injection context.
    */
   injector?: Injector;
-}
-
-function getFallbackInitialValue<E extends MfeEventName>(
-  event: E
-): EventPayload<E> | undefined {
-  const context = getMfeContext();
-  if (!context) return undefined;
-
-  switch (event) {
-    case SHELL_EVENTS.THEME_CHANGED:
-      return context.theme as EventPayload<E>;
-    case SHELL_EVENTS.USER_CHANGED:
-      return context.user as EventPayload<E>;
-    case SHELL_EVENTS.WORKSPACE_CHANGED:
-      return context.workspaceId as EventPayload<E>;
-    case SHELL_EVENTS.LOCALE_CHANGED:
-      return context.locale as EventPayload<E>;
-    default:
-      return undefined;
-  }
 }
 
 /**
