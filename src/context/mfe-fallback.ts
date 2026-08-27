@@ -1,10 +1,10 @@
 import { getMfeContext, MfeContext } from './mfe-context';
+import { SHELL_EVENTS } from '../events/mfe-events';
 import {
   EventPayload,
   MfeEventName,
-  SHELL_EVENTS,
   ShellEventPayloadMap
-} from '../events/mfe-events';
+} from '../events/mfe-events.model';
 
 // Mapped type to ensure every shell event maps to a resolver returning the correct payload type
 type FallbackResolversMap = {
@@ -17,7 +17,12 @@ const FALLBACK_RESOLVERS: FallbackResolversMap = {
   [SHELL_EVENTS.THEME_CHANGED]: (context) => context.theme,
   [SHELL_EVENTS.USER_CHANGED]: (context) => context.user,
   [SHELL_EVENTS.WORKSPACE_CHANGED]: (context) => context.workspaceId,
-  [SHELL_EVENTS.LOCALE_CHANGED]: (context) => context.locale
+  [SHELL_EVENTS.LOCALE_CHANGED]: (context) => context.locale,
+  [SHELL_EVENTS.ROUTE_CHANGED]: () => ({
+    path: '',
+    params: Object.freeze({}),
+    queryParams: Object.freeze({})
+  })
 };
 
 /**
